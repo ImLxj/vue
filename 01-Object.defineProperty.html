@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    /* Object.defineProperty() 方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回此对象。 */
+    let person = {
+      age: 15
+    }
+    let name = '张三'
+    /* 
+      Object.defineProperty(object,propName,descriptor)
+      object ===> 要给谁添加
+      propName ===> 要添加的属性名(String类型)
+      descriptor ===> 属性描述(对象)
+    */
+    Object.defineProperty(person, 'name', {
+      // 描述对象的第一个属性 value 它就是给添加的属性增加属性值,这个设置的属性值可以是String、number、boolean、Object、Array等等
+      // value: '吴彦祖',
+
+      // 描述对象的第二个属性 writable 他就是决定对象是否可以被重新赋值 true ==> 可以, false ==> 不可以
+      // writable: true,
+
+      // 描述对象的第三个属性 enumerable 它是决定该新增的属性是否可以被遍历到 true ==> 可以 false ==> 不可以
+      // enumerable: true,
+
+      // 描述对象的第四个属性 configurable 它决定对象添加的新的属性是否能够被删除 true ==> 可以 false ==> 不可以
+      // configurable: true,
+
+      // 当添加的对象属性被访问的时候调用该函数
+      get: function () {
+        console.log('get');
+        return name
+      },
+
+      // 当添加的队形属性被修改时调用该函数
+      set: function (newVal) {
+        name = newVal
+        return console.log('我被修改');
+      }
+    })
+    person.name = '吴彦祖'
+
+
+    // Object.keys() 方法会返回一个由一个给定对象的自身可枚举属性组成的数组，数组中属性名的排列顺序和正常循环遍历该对象时返回的顺序一致 。
+    /* let key = Object.keys(person)
+    console.log(key); */
+    console.log(person.name);
+  </script>
+</body>
+
+</html>

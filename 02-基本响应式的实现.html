@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>基本响应式的实现</title>
+</head>
+
+<body>
+  <script>
+    let person = {
+      name: '张三',
+      age: 15
+    }
+
+    function observer(target) {
+      if (typeof target === 'Object' || target === null) {
+        return target
+      }
+
+      for (let key in target) {
+        defineReactive(target, key, target[key])
+      }
+    }
+
+    function defineReactive(target, key, value) {
+      console.log(11);
+      Object.defineProperty(target, key, {
+        get() {
+          return value
+        },
+        set(newValue) {
+          if (newValue !== value) {
+            value = newValue
+            console.log('更新视图');
+          }
+        }
+      })
+    }
+    observer(person);
+    person.name = '马六'
+  </script>
+</body>
+
+</html>
