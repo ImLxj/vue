@@ -1,47 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>基本响应式的实现</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>基本响应式的实现</title>
-</head>
-
-<body>
-  <script>
-    let person = {
-      name: '张三',
-      age: 15
-    }
-
-    function observer(target) {
-      if (typeof target === 'Object' || target === null) {
-        return target
+  <body>
+    <script>
+      let person = {
+        name: '张三',
+        age: 15
       }
 
-      for (let key in target) {
-        defineReactive(target, key, target[key])
-      }
-    }
-
-    function defineReactive(target, key, value) {
-      console.log(11);
-      Object.defineProperty(target, key, {
+      let p = {}
+      Object.defineProperty(p, 'name', {
         get() {
-          return value
+          console.log('我监测到了name数据')
+          return person.name
         },
-        set(newValue) {
-          if (newValue !== value) {
-            value = newValue
-            console.log('更新视图');
-          }
+        set(value) {
+          console.log('name数据被修改,我要渲染页面了')
+          person.name = value
         }
       })
-    }
-    observer(person);
-    person.name = '马六'
-  </script>
-</body>
-
+      Object.defineProperty(p, 'age', {
+        get() {
+          console.log('我监测到了age数据')
+          return person.age
+        },
+        set(value) {
+          console.log('age数据被修改,我要渲染页面了')
+          person.age = value
+        }
+      })
+    </script>
+  </body>
 </html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let person = {
+        name: '张三',
+        age: 15
+      }
+
+      // Vue3响应式原理,是window上的Proxy代理对象
+      const p = new Proxy(person, {
+        get(target, propName) {
+          console.log(`我监听到了${propName}属性`)
+          // 通过Reflect反射对象
+          return Reflect(target, propName)
+        },
+        set(target, propName, value) {
+          console.log(`我监听到了${propName}属性的修改,准备渲染页面`)
+          Reflect(target, propName, value)
+        },
+        deleteProperty(target, propName) {
+          console.log(`我监听到了${propName}属性的删除,准备渲染页面`)
+          return Reflect.deleteProperty(target, propName)
+        }
+      })
+    </script>
+  </body>
+</html>
